@@ -3,11 +3,8 @@ clear;
 close all; 
 clc;
 
-% % Step-1: Load input image
-I = imread('Zebra.jpg');
-
-% % Step-2: Conversion of input image to grey-scale image
-grayImage = rgb2gray(I);
+% % Step-1: Load input image & Step-2: Conversion of input image to grey-scale image
+I = rgb2gray(imread('Zebra.jpg'));
 
 % Define a  new image and populate it with zeroes
 newImageCols = 1836;
@@ -23,9 +20,9 @@ imageNew = uint8(zeros([newImageRows, newImageCols]));
 rowScale = round(size(imageNew, 1) / oldImageRows);
 colScale = round(size(imageNew, 2) / oldImageColumns);
 
+% Nearest Neighbour Interpolation
 for rows = 0:newImageRows-2
   for columns = 0:newImageCols-2
-      
       newPixelR = 1+round(rows / rowScale);
       newPixelC = 1+round(columns / colScale);
       
@@ -33,7 +30,7 @@ for rows = 0:newImageRows-2
       nextCols = columns + 1;
       
       % Set the next value in the image
-      imageNew(nextRow, nextCols) = grayImage(newPixelR, newPixelC);
+      imageNew(nextRow, nextCols) = I(newPixelR, newPixelC);
   end
 end
 
