@@ -12,6 +12,10 @@ image = rgb2gray(imread('Noisy.png'));
 paddedCols = size(image, 1) + 4;
 paddedRows = size(image, 2) + 4;
 
+medSortArray = zeros(1,25);
+
+sortCounter = 1;
+
 x = zeros(paddedCols, paddedRows);
 
 % This allocates the image pixels from three in.
@@ -23,9 +27,12 @@ for row = 3:size(image,1)-2
     for col = 3:size(image,2)-2       
         % Kernel Mask n Ting
         sum = 0;
+        sortCounter = 1;
+        sortCounter = sortCounter + 1;
         for rows = row-2:row+2
             for cols = col-2:col+2
-                sum = round(sum + ((1/25) * x(rows, cols)));
+                sum = sum + (1/25 * x(rows, cols));
+                medSortArray(1, sortCounter) = x(rows, cols); 
             end
         end
         smoothedImage(row-2, col-2) = sum;
